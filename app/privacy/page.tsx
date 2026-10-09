@@ -1,4 +1,65 @@
-import type { Metadata } from 'next';
-import { ReadingPage } from '@/components/reading-page';
-export const metadata: Metadata = { title: 'Privacy', description: 'How the Evograph website, public demo, and local CLI handle information.', alternates: { canonical: '/privacy' } };
-export default function Page() { return <ReadingPage index="PRIVACY"><h1>Privacy, in plain terms.</h1><p>Updated 9 October 2026. This notice covers this website and its public demo. Evograph is maintained by Muhammad Atif.</p><h2>Website and demo</h2><p>The site has no account system, signup form, advertising trackers, or optional analytics integration. The demo uses a bundled public sample. It does not ask for repository access, accept file uploads, or send your code to an AI provider. Record selection happens in your browser.</p><p>The hosting provider, Vercel, processes ordinary request information such as IP addresses, requested URLs, user agents, and timestamps to deliver and protect the site. Its handling and retention of infrastructure logs are governed by its own policies. See <a href="https://vercel.com/legal/privacy-policy">Vercel’s privacy policy</a>.</p><h2>Local CLI</h2><p>The CLI stores graph records locally in <code>.evolution/</code>. It can read Git configuration for author metadata and Git information when you choose to attach changes. The current CLI does not include a hosted Evograph account, telemetry service, or built-in AI API call.</p><p>Installing packages contacts the npm registry. Sharing graph files through Git or a coding agent follows the privacy settings and policies of those tools. Review records before committing or pasting them, especially author metadata, notes, and private project details.</p><h2>Contact and external links</h2><p>If you email the project, your email service and the recipient’s email service process that message. Use the contact address to request correction or deletion of correspondence held by the maintainer. GitHub and other linked services apply their own policies when you visit them.</p><h2>Changes and questions</h2><p>This notice will be updated if the site adds features that change information handling. Send questions to <a href="mailto:dev.muhammad.atif@gmail.com">dev.muhammad.atif@gmail.com</a>.</p></ReadingPage>; }
+import type { Metadata } from "next";
+import { ReadingPage } from "@/components/reading-page";
+export const metadata: Metadata = {
+  title: "Privacy",
+  description:
+    "How the Evograph website, public demo, and local CLI handle information.",
+  alternates: { canonical: "/privacy" },
+};
+export default function Page() {
+  return (
+    <ReadingPage index="PRIVACY">
+      <h1>Privacy, in plain terms.</h1>
+      <p>
+        Updated 9 October 2026. This notice covers this website and its public
+        demo. Evograph is maintained by Muhammad Atif.
+      </p>
+      <h2>Website and demo</h2>
+      <p>
+        The site has no account system, signup form, advertising trackers, or
+        optional analytics integration. The demo uses a bundled public sample.
+        It does not ask for repository access, accept file uploads, or send your
+        code to an AI provider. Record selection happens in your browser.
+      </p>
+      <p>
+        The hosting provider, Vercel, processes ordinary request information
+        such as IP addresses, requested URLs, user agents, and timestamps to
+        deliver and protect the site. Its handling and retention of
+        infrastructure logs are governed by its own policies. See{" "}
+        <a href="https://vercel.com/legal/privacy-policy">
+          Vercel’s privacy policy
+        </a>
+        .
+      </p>
+      <h2>Local CLI</h2>
+      <p>
+        The CLI stores graph records locally in <code>.evolution/</code>. It can
+        read Git configuration for author metadata and Git information when you
+        choose to attach changes. The current CLI does not include a hosted
+        Evograph account, telemetry service, or built-in AI API call.
+      </p>
+      <p>
+        Installing packages contacts the npm registry. Sharing graph files
+        through Git or a coding agent follows the privacy settings and policies
+        of those tools. Review records before committing or pasting them,
+        especially author metadata, notes, and private project details.
+      </p>
+      <h2>Contact and external links</h2>
+      <p>
+        If you email the project, your email service and the recipient’s email
+        service process that message. Use the contact address to request
+        correction or deletion of correspondence held by the maintainer. GitHub
+        and other linked services apply their own policies when you visit them.
+      </p>
+      <h2>Changes and questions</h2>
+      <p>
+        This notice will be updated if the site adds features that change
+        information handling. Send questions to{" "}
+        <a href="mailto:dev.muhammad.atif@gmail.com">
+          dev.muhammad.atif@gmail.com
+        </a>
+        .
+      </p>
+    </ReadingPage>
+  );
+}

@@ -46,4 +46,4 @@ Add evograph.app and redirect www.evograph.app to the apex using the values Verc
 
 The lockfile is committed. Runtime audit currently reports zero known advisories (9 October 2026). A braces stack-exhaustion advisory remains in the development-only Next.js lint toolchain; npm's offered automatic fix downgrades Next.js lint configuration across major versions and was not applied. Avoid untrusted custom glob patterns in lint configuration. Reassess upstream fixes before future dependency updates. This is not a claim that the application has no possible vulnerabilities.
 
-GitHub workflows check lint, types, sample integrity, and production build. Dependency update automation should open PRs rather than write to main. Use Muhammad Atif's verified GitHub identity for maintainer commits; do not rewrite prior authorship.
+GitHub workflows check runtime advisories, lint, types, sample integrity, and production build. Dependency updates remain maintainer-authored to avoid unnecessary bot commits. Use Muhammad Atif's verified GitHub identity for maintainer commits; do not rewrite prior authorship.
