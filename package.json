@@ -36,6 +36,6 @@
     "eslint-config-next": "16.4.0",
     "fontkit": "^2.0.4",
     "sharp": "^0.35.5",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   }
 }
