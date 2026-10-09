@@ -1,0 +1,76 @@
+export const metadata = { title: 'Quickstart', description: 'Install Evograph and record your first linked problem and decision in five minutes.', alternates: { canonical: '/docs' } };
+
+# Leave your first trail.
+
+Evograph is a local CLI that records the reasoning behind your code. Its executable is called `ecs`. You need **Node.js 22.12 or later** and a repository you can write to. Git is useful for versioning your records and connecting changes.
+
+## 1. Install and initialize
+
+```sh
+npm install -g @evograph/cli
+cd your-project
+ecs init --agents codex
+```
+
+Replace `codex` with `claude`, `cursor`, `copilot`, `windsurf`, or `antigravity` for your setup. You can pass a comma-separated list. Running `ecs init` without flags opens an interactive agent selector.
+
+The CLI creates `.evolution/`, a protocol file, and the selected agent instruction files. Existing instruction files are skipped unless you explicitly use `--force`. Read any generated instructions before committing them.
+
+## 2. Record a problem and decision
+
+This command is noninteractive. Copy the whole block:
+
+```sh
+ecs close-session \
+  --problem-title "Context disappears between sessions" \
+  --problem-description "The diff survives, but the rationale stays in chat." \
+  --decision-title "Keep decisions with the repository" \
+  --chosen "Store a linked graph in .evolution/" \
+  --rationale "The next session should be able to recover our reasoning." \
+  --alternatives "Chat history,A separate hosted knowledge base" \
+  --status in-progress
+```
+
+It creates a problem, creates a decision, and links the decision to the problem with a `solves` edge. It prints the resulting IDs. Content-identical records reuse their IDs.
+
+## 3. Read the context
+
+```sh
+ecs context
+ecs graph
+ecs list
+```
+
+`ecs context` prints problem and decision summaries plus recent decision graphs. Use `ecs show <id>` for the complete record, including rationale and alternatives. IDs can be unique prefixes.
+
+[Explore actual records and CLI output in the browser demo](/demo).
+
+## 4. Keep the record with the code
+
+Evograph writes files locally. It does not commit or push them for you. Review the records, then add the files you intend to share:
+
+```sh
+git add .evolution AGENTS.md
+git commit -m "Record the repository context workflow"
+```
+
+Include other generated instruction files you chose, such as `CLAUDE.md`. Check your ignore rules if `.evolution/` does not appear in Git. Keep secrets, credentials, private customer information, and sensitive logs out of records you may commit.
+
+## 5. Connect a real change
+
+Run `ecs create decision` in a terminal for the interactive flow. After recording the decision, the CLI can offer to link an existing problem and selected Git worktree files or a recent commit. The attached change is a record of file paths and status, or commit details; it is not a copy of your diff.
+
+The flag-based `create` and `close-session` flows do not automatically attach Git changes. `ecs link <from> <to> <relation>` connects existing objects.
+
+## Before the next session
+
+Run `ecs context`, inspect relevant decisions with `ecs show`, and load that context into your coding workflow. The [agent guide](/docs/agents) explains the generated instructions and their limits.
+
+### If a command fails
+
+- `ecs: command not found`: restart your terminal or check that npm’s global bin directory is on `PATH`. You can also use `npx @evograph/cli --help`.
+- Initialization required: run `ecs init` from the project root.
+- Node compatibility: check `node --version`. The published package currently declares Node 20, but its Commander dependency requires 22.12; use 22.12 or later.
+- An ambiguous ID prefix: copy more characters or use the full ID.
+
+[See all commands](/docs/cli) or [report an issue](https://github.com/evograph/cli/issues).

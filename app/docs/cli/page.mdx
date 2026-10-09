@@ -1,0 +1,79 @@
+export const metadata = { title: 'CLI reference', description: 'Evograph CLI commands, object types, relationships, and storage model.', alternates: { canonical: '/docs/cli' } };
+
+# The CLI, at a glance.
+
+Package: `@evograph/cli`. Executable: `ecs`. This reference describes published version **0.1.2**. Run `ecs --help` or `ecs <command> --help` for every option.
+
+## Initialize
+
+```sh
+ecs init --agents codex,claude
+ecs init --agents custom --custom-path .my-agent/RULES.md
+```
+
+`--cli-prefix` changes the command prefix in generated instructions. `--force` overwrites existing agent instruction files; review them first.
+
+## Create records
+
+`ecs create` opens an interactive selector for a note, problem, or decision. Supplying a type and all required flags creates the object without prompting:
+
+```sh
+ecs create note --title "A useful constraint" --body "Our deployment must work offline."
+ecs create problem --title "Lost context" --description "Reasoning stays in chat." --severity medium
+ecs create decision --title "Keep the rationale" --chosen "Repository records" --rationale "Portable and reviewable" --status in-progress
+```
+
+Problem severity presets: `low`, `medium`, `high`, `critical`. Decision status presets: `proposed`, `in-progress`, `successful`, `failed`. These are suggestions; the domain allows other nonempty labels.
+
+Decisions also accept `--alternatives` (comma-separated), `--problem` (summary text), and `--expected-outcome`. The `--problem` text does **not** create a graph edge. Use `ecs link` or `close-session` to connect objects.
+
+Author metadata defaults to Git configuration when available. `--author` and `--author-email` override it. Check metadata before publishing records.
+
+## Close a session
+
+`ecs close-session` records a problem and decision together and creates a `solves` edge. Required decision flags are `--decision-title`, `--chosen`, and `--rationale`. Provide either `--problem-title` plus `--problem-description`, or `--problem-id` to reuse a problem.
+
+```sh
+ecs close-session --problem-id <problem-id> \
+  --decision-title "Keep the graph local" \
+  --chosen "Repository-owned files" \
+  --rationale "Context should remain portable" \
+  --status in-progress --dry-run
+```
+
+Remove `--dry-run` to write the records. Defaults: severity `medium`, decision status `in-progress`.
+
+## Inspect and traverse
+
+```sh
+ecs list
+ecs show <id>
+ecs context --limit 5
+ecs graph
+ecs graph <id>
+ecs neighbors <id>
+ecs ancestors <id>
+ecs descendants <id>
+ecs browse
+```
+
+`browse` is interactive. The other commands print noninteractive output. Context’s limit controls recent **decision graphs**; all problem and decision summaries are still listed.
+
+Ancestors follow incoming edges; descendants follow outgoing edges. Relationship direction matters. A decision points to the problem it `solves`, and to a change it is `implemented_by`.
+
+## Connect records
+
+```sh
+ecs link <decision-id> <problem-id> solves
+ecs link <decision-id> <change-id> implemented_by
+```
+
+Available relations are `solves`, `informed_by`, `implemented_by`, `supersedes`, and `relates_to`. Edges are stored objects too. Linking existing objects does not create their underlying records.
+
+## Storage and limits
+
+Records live under `.evolution/objects/`. A SHA-256 hash of the record type, schema version, and content identifies each object. Metadata, such as author and creation time, is excluded from the content hash. Graph indexes support traversal.
+
+The current CLI supports creating, linking, reading, and browsing records. It does not provide a hosted sync service, access-control layer, automatic conflict resolution, or a built-in AI API call. It does not enforce an agent’s compliance with instructions. Manage sharing and review through your repository workflow.
+
+[Read the source](https://github.com/evograph/cli) · [Return to the quickstart](/docs)

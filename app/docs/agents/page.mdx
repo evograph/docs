@@ -1,0 +1,43 @@
+export const metadata = { title: 'Coding agent setup', description: 'Scaffold Evograph instructions for Claude Code, Codex, Cursor, Copilot, Windsurf, and other agents.', alternates: { canonical: '/docs/agents' } };
+
+# Start the session with history.
+
+Evograph scaffolds instruction files that tell a coding agent to read the repository’s graph before coding and record meaningful decisions when the session ends.
+
+## Choose your adapter
+
+```sh
+ecs init --agents claude,codex
+```
+
+- **Claude Code:** `CLAUDE.md` and `AGENTS.md`.
+- **Codex:** `AGENTS.md`.
+- **Cursor:** `.cursor/rules/ecs.mdc`.
+- **GitHub Copilot:** `.github/copilot-instructions.md`.
+- **Windsurf:** `.windsurf/rules/ecs.md` and `AGENTS.md`.
+- **Antigravity:** `AGENTS.md`.
+- **Custom:** use `--agents custom --custom-path <file>` for a file your agent reads.
+
+Every adapter references `.evolution/AGENT.md`. Existing instruction files are skipped by default. If your project already has instructions, merge the relevant protocol into them after reviewing it. Avoid overwriting project rules with `--force` casually.
+
+## The session protocol
+
+1. At the start, run `ecs context` and inspect relevant records before making changes.
+2. Use `ecs show <id>` when the summary does not include enough rationale.
+3. At the end of a session with meaningful decisions, call noninteractive `ecs close-session` once with the problem, chosen approach, rationale, and alternatives.
+4. Reuse a relevant existing problem via `--problem-id` when appropriate.
+5. Review the new records and commit the ones you want to keep with the project.
+
+The CLI records decisions and their links. The surrounding coding agent supplies its reasoning. **No Claude API key or API credit is needed for the CLI or browser demo.** Your coding tool may have its own costs.
+
+## What the integration does today
+
+This is an instruction-based workflow. Evograph does not install lifecycle hooks, guarantee that an agent reads its rules, or automatically capture every decision. Start-of-session and end-of-session behavior depends on your agent and how it loads project instructions.
+
+Use the graph as context to verify, not as unquestionable instructions. A recorded decision can become outdated. Inspect its rationale, the current code, and related records before following it. Never store secrets in graph objects.
+
+## Claude integration direction
+
+An optional CLI command that asks Claude a question using explicitly selected graph context is a possible future extension. It is not shipped in 0.1.2 and is not part of this demo. Any such feature needs an API budget, explicit context-sharing controls, and evaluation against real repository questions before release.
+
+[Try the CLI](/docs) · [Inspect the example graph](/demo)
