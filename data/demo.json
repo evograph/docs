@@ -1,0 +1,113 @@
+{
+  "cliVersion": "0.1.2",
+  "provenance": "Published @evograph/cli; close-session plus the CLI Change and GraphRepository domain APIs for a sample worktree.",
+  "records": [
+    {
+      "id": "47f62d37980f41a3d63272eb4bd7172fc7c8cc2fa59cdff24efa516bd6c49646",
+      "header": {
+        "type": "change",
+        "schemaVersion": 1
+      },
+      "content": {
+        "kind": "worktree",
+        "files": [
+          {
+            "path": "AGENTS.md",
+            "status": "??"
+          }
+        ]
+      },
+      "metadata": {
+        "createdAt": "2026-10-09T00:00:00.000Z",
+        "version": 1,
+        "author": {
+          "name": "Evograph sample"
+        }
+      }
+    },
+    {
+      "id": "56bffd31d2eb3f3d89c69e6a120491765ef3e65e3b79a37503586a1b9479f109",
+      "header": {
+        "type": "edge",
+        "schemaVersion": 1
+      },
+      "content": {
+        "from": "e5dec61cb348009c91e2439f4747891de54add40456f4a8dee641fbd5e7315fe",
+        "to": "969872e61b35446c79603ee42b65237e745464440be0d9ead0db7cfc709ab36b",
+        "relation": "solves"
+      },
+      "metadata": {
+        "createdAt": "2026-10-09T00:00:00.000Z",
+        "version": 1,
+        "author": {
+          "name": "Evograph sample"
+        }
+      }
+    },
+    {
+      "id": "969872e61b35446c79603ee42b65237e745464440be0d9ead0db7cfc709ab36b",
+      "header": {
+        "type": "problem",
+        "schemaVersion": 1
+      },
+      "content": {
+        "title": "Context disappears between sessions",
+        "description": "A new developer or coding agent can read the diff but cannot recover the constraints and rejected approaches behind it.",
+        "severity": "medium"
+      },
+      "metadata": {
+        "createdAt": "2026-10-09T00:00:00.000Z",
+        "version": 1,
+        "author": {
+          "name": "Evograph sample"
+        }
+      }
+    },
+    {
+      "id": "c51cad181e18b24449887404693de89a30be354a937e0a8b570ba26bd03a72c5",
+      "header": {
+        "type": "edge",
+        "schemaVersion": 1
+      },
+      "content": {
+        "from": "e5dec61cb348009c91e2439f4747891de54add40456f4a8dee641fbd5e7315fe",
+        "to": "47f62d37980f41a3d63272eb4bd7172fc7c8cc2fa59cdff24efa516bd6c49646",
+        "relation": "implemented_by"
+      },
+      "metadata": {
+        "createdAt": "2026-10-09T00:00:00.000Z",
+        "version": 1,
+        "author": {
+          "name": "Evograph sample"
+        }
+      }
+    },
+    {
+      "id": "e5dec61cb348009c91e2439f4747891de54add40456f4a8dee641fbd5e7315fe",
+      "header": {
+        "type": "decision",
+        "schemaVersion": 1
+      },
+      "content": {
+        "title": "Keep decisions with the repository",
+        "alternatives": [
+          "Leave the rationale in chat history",
+          "Maintain a separate hosted knowledge base"
+        ],
+        "chosen": "Store a small, linked evolution graph in .evolution/",
+        "rationale": "The reasoning should travel with the code, remain readable without a hosted service, and be available at the start of the next session.",
+        "status": "in-progress",
+        "problem": "Context disappears between sessions",
+        "expectedOutcome": "The next session can follow the original problem and chosen approach before making a change."
+      },
+      "metadata": {
+        "createdAt": "2026-10-09T00:00:00.000Z",
+        "version": 1,
+        "author": {
+          "name": "Evograph sample"
+        }
+      }
+    }
+  ],
+  "context": "=== ECS CONTEXT ===\n\nCLI version: 0.1.2\n\n## Problems\n- 969872e6  [medium] Context disappears between sessions  (969872e61b35446c79603ee42b65237e745464440be0d9ead0db7cfc709ab36b)\n\n## Decisions\n- e5dec61c  [in-progress] Keep decisions with the repository → Store a small, linked evolution graph in .evolution/  (e5dec61cb348009c91e2439f4747891de54add40456f4a8dee641fbd5e7315fe)\n\n## Recent decision graphs (limit 5)\n\n### Keep decisions with the repository (e5dec61c)\ndecision: Keep decisions with the repository (e5dec61c)\n  │ solves\n  ▼\n  problem: Context disappears between sessions (969872e6)\n  │ implemented_by\n  ▼\n  change: change object (47f62d37)\n\n=== END ECS CONTEXT ===\n"
+}
